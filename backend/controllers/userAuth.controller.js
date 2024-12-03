@@ -1,6 +1,6 @@
+const { matchPassword, generateAuthToken } = require('../middlewares/auth.middleware');
 const userModel = require('../models/users.model');
-const {userCreate} = require('../services/userAuth.service');
-const bcrypt = require("bcrypt");
+const {userCreate} = require('../services/userModel.service');
 
 module.exports.userSignUp = async (req, res) => {
     const body = req.body;
@@ -13,7 +13,7 @@ module.exports.userSignUp = async (req, res) => {
     }
     else{
         const newUser = await userCreate(body); 
-        const token = newUser.generateAuthToken(body);
+        const token = generateAuthToken(body);
         res.cookie('token',token);
         res.status(201).json({token, newUser});
     }
@@ -29,10 +29,10 @@ module.exports.userLogin = async (req, res) => {
     }
     else{
         console.log(body.password, userData.password)
-        const isMatch = await bcrypt.compare(body.password, userData.password);
+        const isMatch = await matchPassword(body.password, userData.password);
         console.log(isMatch)
         if(isMatch){
-            const token = userData.generateAuthToken(body);
+            const token = generateAuthToken(body);
             res.cookie('token',token);
             res.status(200).json({token, userData});
         }

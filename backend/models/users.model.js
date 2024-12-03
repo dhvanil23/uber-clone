@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const {maskPassword} = require("../middlewares/auth.middleware")
+
 
 require("dotenv").config();
 
@@ -29,28 +29,7 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-userSchema.methods.generateAuthToken = function (body) {
-  const token = jwt.sign(body, process.env.SECRET_KEY);
-  this.authToken = token;
-  return token;
-};
-
-userSchema.pre("save", function (next) {
-  if(this.isModified('password')){
-    bcrypt
-      .hash(this.password, 10)
-      .then((hashedPassword) => {
-        console.log(this.password,hashedPassword);
-        this.password = hashedPassword;
-        next();
-      })
-      .catch((err) => {
-        console.log("Error in hashing password", err);
-        return;
-      });
-  }
-  return;
-});
+userSchema.pre("save", maskPassword);
 
 const userModel = mongoose.model("Users", userSchema);
 
