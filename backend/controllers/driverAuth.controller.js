@@ -1,4 +1,4 @@
-const { matchPassword, generateAuthToken } = require('../middlewares/auth.middleware');
+const { matchPassword, generateAuthToken } = require("../services/authHelper.service");
 const driverModel = require('../models/drivers.model');
 const { driverCreate } = require('../services/driverModel.service');
 
@@ -14,7 +14,8 @@ module.exports.driverSignUp = async (req, res) => {
         }
         else {
             const newdriver = await driverCreate(body);
-            const token = generateAuthToken(body);
+            console.log('newdr',newdriver)
+            const token = generateAuthToken({_id: newdriver._id});
             res.cookie('token', token);
             res.status(201).json({ token, newdriver });
         }
@@ -38,7 +39,7 @@ module.exports.driverLogin = async (req, res) => {
             const isMatch = await matchPassword(body.password, driverData.password);
             console.log('is', isMatch)
             if (isMatch) {
-                const token = generateAuthToken(body);
+                const token = generateAuthToken({_id: driverData._id});
                 res.cookie('token', token);
                 res.status(200).json({ token, driverData });
             }

@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-const {maskPassword} = require("../middlewares/auth.middleware")
-
+const {maskPassword} = require("../services/authHelper.service")
 
 require("dotenv").config();
 

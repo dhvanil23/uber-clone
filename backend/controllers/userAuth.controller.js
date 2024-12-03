@@ -1,4 +1,4 @@
-const { matchPassword, generateAuthToken } = require('../middlewares/auth.middleware');
+const { matchPassword, generateAuthToken } = require("../services/authHelper.service");
 const userModel = require('../models/users.model');
 const {userCreate} = require('../services/userModel.service');
 
@@ -13,7 +13,7 @@ module.exports.userSignUp = async (req, res) => {
     }
     else{
         const newUser = await userCreate(body); 
-        const token = generateAuthToken(body);
+        const token = generateAuthToken({_id: newUser._id});
         res.cookie('token',token);
         res.status(201).json({token, newUser});
     }
@@ -32,7 +32,9 @@ module.exports.userLogin = async (req, res) => {
         const isMatch = await matchPassword(body.password, userData.password);
         console.log(isMatch)
         if(isMatch){
-            const token = generateAuthToken(body);
+            console.log('newdr',userData, typeof(userData))
+
+            const token = generateAuthToken({_id: userData._id});
             res.cookie('token',token);
             res.status(200).json({token, userData});
         }

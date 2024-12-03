@@ -16,3 +16,8 @@ module.exports.driverCreate = async (req) => {
     })
     return driver
 }
+
+module.exports.driverFind = async (filter) => {
+    const drivers = await driverModel.find(filter)
+    return drivers;
+}

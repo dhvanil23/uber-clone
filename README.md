@@ -13,9 +13,9 @@ This is a Node.js authentication system using Express.js, Mongoose, and JWT (JSO
 ## Project Structure
 - `connectDb.js`: Database connection utility
 - `index.js`: Main application entry point
-- `controllers/userAuth.controllers.js`: User authentication logic
+- `controllers/userAuth.controller.js`: User authentication logic
 - `models/users.model.js`: User data model and schema
-- `routes/userAuth.routes.js`: Authentication routes
+- `routes/userAuth.route.js`: Authentication routes
 
 ## Authentication Routes
 

@@ -13,3 +13,8 @@ module.exports.userCreate = async (req) => {
     })
     return user
 }
+
+module.exports.userFind = async (filter) => {
+    const user = await userModel.find(filter)
+    return user;
+}
