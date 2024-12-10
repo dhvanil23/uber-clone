@@ -1,5 +1,6 @@
 const { matchPassword, generateAuthToken } = require("../services/authHelper.service");
 const userModel = require('../models/users.model');
+const blacklistedTokenModel = require('../models/blacklistedToken.model');
 const {userCreate} = require('../services/userModel.service');
 
 module.exports.userSignUp = async (req, res) => {
@@ -23,7 +24,7 @@ module.exports.userLogin = async (req, res) => {
     const body = req.body;
     const userData = await userModel.findOne({
         email: body.email
-    })
+    }).select('+password')
     if(!userData){
         res.status(400).json({error:`User doesn't exist. Do SignUp first!!!`});
     }
@@ -42,4 +43,11 @@ module.exports.userLogin = async (req, res) => {
             res.status(401).json({error: "Invalid email or password"});
         }
     }
+}
+
+module.exports.userLogout = async (req, res) => {
+    const token = req.cookies?.token || req?.headers?.authorization?.split(' ')[1]
+    await blacklistedTokenModel.create({token: token});
+    res.clearCookie('token');
+    res.status(200).json({message: "Successfully logged out."});
 }
