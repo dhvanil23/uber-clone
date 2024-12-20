@@ -10,7 +10,7 @@ const UserSignup = () => {
   async function submitHandler(e) {
     e.preventDefault();
 
-    const response = await fetch('http://localhost:5000/user/auth/signup', {
+    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/user/auth/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
