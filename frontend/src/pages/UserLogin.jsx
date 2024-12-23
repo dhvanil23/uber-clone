@@ -40,7 +40,7 @@ const UserLogin = () => {
     <div className='flex flex-col justify-between p-7 text-xl h-screen'>
       <div className='max-h-1/2'>
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="" className='w-1/4 pt-7 pl-3' />
+          src="https://upload.wikimedia.org/wikipedia/commons/c/cc/FinPoint_logo_2018.png" alt="" className='w-1/4 pt-7 pl-3' />
         <form className='flex flex-col mt-20 p-3' onSubmit={submitHandler} method='POST'>
           <h3 className='font-bold'> What's your email?</h3>
           <input onChange={(e) => setEmail(e.target.value)} type="email" placeholder='email@example.com' className='border-2 p-2 mt-3 rounded-lg bg-gray-200 cursor-text' />

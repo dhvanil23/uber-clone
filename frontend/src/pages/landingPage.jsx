@@ -1,15 +1,29 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import homepage_image from '../images/homepage_image.jpg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
+import Navbar from './navbar';
+
 const LandingPage = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <div className="flex justify-between flex-col h-screen bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1647424825116-fbf8b9415fc5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHRyYWZmaWMlMjBsaWdodHxlbnwwfHwwfHx8MA%3D%3D')]">
-        <img 
-        src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="" className='w-1/3 pt-7 pl-7'/>
-        <div className='text-2xl font-bold w-screen bg-white px-6 py-6'>
-          <h2 className='w-full text-center text-bold'>Get Started With Uber</h2>
-          <button onClick={() => {navigate('/login')}} className='bg-black text-white w-full mt-3 mb-3 p-2 rounded-xl'>Continue</button>
+      <Navbar />
+      <div className="flex flex-col md:flex-row-reverse mt-20 w-full md:w-11/12 p-4 mx-auto rounded-xl shadow-2xl bg-purple-100">
+        <img src={homepage_image} alt="" className="w-full md:w-1/2 object-cover rounded-xl mb-4 md:mb-0" />
+
+        <div className="w-full md:w-1/2 px-4">
+          <p className="text-2xl md:text-4xl font-bold font-yellow mb-4 mt-10">
+            Ease your Investment
+          </p>
+          <p className='text-lg md:text-xl mt-10 mb-10 overflow-hidden text-ellipsis w-full break-words'>
+            At FinPoint, we simplify your financial journey by bringing all aspects of finance and investment under one roof. Whether you're looking to manage your wealth, invest wisely, or plan for your future, we are here to guide you every step of the way. Take the first step toward securing your financial future. <br/><br/><b>Click below to book a free call with our experts.</b>
+          </p>
+          <button className="bg-black text-lg md:text-xl hover:bg-green-600 text-white p-3 md:p-5 items-center font-bold mt-4 rounded-xl flex" onClick={() => navigate('/bookCall')}>
+            <FontAwesomeIcon icon={faPhone} className="mr-2 md:mr-4 text-yellow-300" />
+            Book a free call
+          </button>
         </div>
       </div>
     </div>
